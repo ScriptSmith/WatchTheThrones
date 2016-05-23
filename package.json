@@ -1,7 +1,7 @@
 {
-  "name": "ausgot",
+  "name": "who-is-downloading",
   "version": "1.0.0",
-  "description": "Monitor aussie Game of Thrones downloaders",
+  "description": "Monitor Game of Thrones downloaders",
   "main": "index.js",
   "dependencies": {
     "bittorrent-dht": "^7.2.1",
@@ -13,5 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ScriptSmith",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "6.2.0"
+  }
 }
