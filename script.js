@@ -209,7 +209,7 @@ function initMap() {
 
   function checkDB(){
     console.log("Checking db")
-    $.getJSON("http://localhost:3000/db", function( data ) {
+    $.getJSON("https://who-is-downloading.herokuapp.com/db", function( data ) {
       var newMarkers = [];
       for(var i=0; i < data.length; i++){
         newMarker = data[i];
@@ -286,7 +286,7 @@ function initMap() {
          icon: "marker.png",
         //  animation: google.maps.Animation.DROP
        });
-       $("#mainTitle").html("People I found downloading Game of Thrones: " + count)
+       $("#mainTitle").html("People I found downloading Game of Thrones:<br>" + count)
        count+=1
      }, timeout);
    }
