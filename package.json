@@ -1,0 +1,16 @@
+{
+  "name": "ausgot",
+  "version": "1.0.0",
+  "description": "Monitor aussie Game of Thrones downloaders",
+  "main": "index.js",
+  "dependencies": {
+    "bittorrent-dht": "^7.2.1",
+    "magnet-uri": "^5.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ScriptSmith",
+  "license": "ISC"
+}
