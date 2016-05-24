@@ -214,11 +214,9 @@ function initMap() {
       for(var i=0; i < data.length; i++){
         newMarker = data[i];
         if (markers.indexOf(newMarker["ip"]) == -1){
-          // console.log("New Marker")
           markers.push(newMarker["ip"]);
           newMarkers.push(newMarker);
         } else {
-          // console.log("Old Marker")
         }
       }
       drop(newMarkers);
