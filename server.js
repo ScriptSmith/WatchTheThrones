@@ -1,7 +1,6 @@
 var DHT = require('bittorrent-dht')
 var magnet = require('magnet-uri')
 var geoip = require('geoip-lite');
-var jsonfile = require('jsonfile')
 
 var locations = []
 
