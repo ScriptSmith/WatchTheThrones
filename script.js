@@ -300,7 +300,7 @@ function initMap() {
     controlText.style.lineHeight = '38px';
     controlText.style.paddingLeft = '5px';
     controlText.style.paddingRight = '5px';
-    controlText.innerHTML = 'People downloading: 0';
+    controlText.innerHTML = 'People downloading Game of Thrones right now:<br>0';
     controlText.setAttribute("id", "mainTitle");
     controlUI.appendChild(controlText);
 
