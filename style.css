@@ -6,3 +6,9 @@ html, body {
 #map {
   height: 100%;
 }
+.fire{
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    cursor:pointer;
+}
