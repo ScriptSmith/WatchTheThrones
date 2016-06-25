@@ -8,18 +8,6 @@ var app = express();
 
 var torrents = {}
 
-// Server
-// var jsonServer = require('json-server')
-// var server = jsonServer.create()
-// var router = jsonServer.router("hello")
-// var middlewares = jsonServer.defaults()
-//
-// server.use(middlewares)
-// server.use(router)
-// server.listen(3000, function () {
-//     console.log('JSON Server is running')
-// })
-
 // Init DHT
 var dht = new DHT()
 

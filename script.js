@@ -215,7 +215,7 @@ var heatmap
 function initMap() {
 
   function checkDB(){
-    $.getJSON("http://localhost:3000/db", function( data ) {
+    $.getJSON("https://watch-the-thrones.herokuapp.com/db", function( data ) {
       console.log("Checked db")
 
       var newMarkers = [];
@@ -276,7 +276,7 @@ function initMap() {
   function CenterControl(controlDiv, map) {
 
     controlDiv.onclick = function() {
-      something = window.open("http://localhost:3000/db");
+      something = window.open("https://watch-the-thrones.herokuapp.com/db");
        something.focus();
     }
 
