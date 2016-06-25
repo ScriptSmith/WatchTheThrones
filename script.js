@@ -252,7 +252,6 @@ function initMap() {
         }
       }
     }
-    console.log(downloaders.length)
     return downloaders
   }
 
@@ -330,7 +329,6 @@ function initMap() {
   function drop(data) {
      for (var i = 0; i < data.length; i++) {
        addMarkerWithTimeout(data[i], i * Math.random()*3 * 100);
-       console.log("dropping")
      }
    }
 
@@ -347,7 +345,6 @@ function initMap() {
        });
 
       marker.addListener('click', function() {
-        console.log(pin['ip'])
         infowindow.open(map, marker);
 
         downloaders = getDownloadersAt(pin["location"])
@@ -380,4 +377,8 @@ function toggleVisualisation(){
 
 
     visTog = !visTog;
+}
+
+function lewisb(){
+    console.log(markers.length)
 }
