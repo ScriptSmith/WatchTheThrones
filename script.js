@@ -224,10 +224,10 @@ function initMap() {
       for(var torrent in torrents){
         for (var j=0; j < torrents[torrent]["IPs"].length; j++){
           var downloader = torrents[torrent]["IPs"][j]
+          markers.push(downloader);
+          newMarkers.push(downloader);
 
           if (markers.indexOf(downloader) == -1){
-            markers.push(downloader);
-            newMarkers.push(downloader);
             heatmarker = new google.maps.LatLng(downloader["location"]["ll"][0],downloader["location"]["ll"][1]);
             heatmarkers.push(heatmarker);
           }
