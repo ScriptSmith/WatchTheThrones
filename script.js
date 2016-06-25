@@ -204,7 +204,13 @@ var styles =
 ]
 var count = 0
 var markers = []
+var mapsmarkers = []
+var heatmarkers = []
+var visTog = false
 var torrents
+
+var map
+var heatmap
 
 function initMap() {
 
@@ -222,6 +228,8 @@ function initMap() {
           if (markers.indexOf(downloader) == -1){
             markers.push(downloader);
             newMarkers.push(downloader);
+            heatmarker = new google.maps.LatLng(downloader["location"]["ll"][0],downloader["location"]["ll"][1]);
+            heatmarkers.push(heatmarker);
           }
         }
       }
@@ -229,6 +237,7 @@ function initMap() {
     });
   }
 
+  checkDB()
 
   function capital(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
@@ -267,8 +276,7 @@ function initMap() {
   function CenterControl(controlDiv, map) {
 
     controlDiv.onclick = function() {
-      something = window.open("data:text/json," + encodeURIComponent(markers),
-                       "_blank");
+      something = window.open("http://localhost:3000/db");
        something.focus();
     }
 
@@ -298,10 +306,15 @@ function initMap() {
 
   }
 
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: {lat: 30, lng: 15.35}
   });
+
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: heatmarkers,
+  });
+
   map.setOptions({styles: styles});
 
   var centerControlDiv = document.createElement('div');
@@ -329,6 +342,7 @@ function initMap() {
          map: map,
          title: pin['ip'],
          icon: "marker.png",
+         visible: !visTog
         //  animation: google.maps.Animation.DROP
        });
 
@@ -345,9 +359,25 @@ function initMap() {
         $("#infoText").html(text)
       });
 
-       $("#mainTitle").html("People I found downloading:<br>" + count)
-       count+=1
-     }, 0);
+      mapsmarkers.push(marker)
+
+      $("#mainTitle").html("People downloading Game of Thrones right now:<br>" + count)
+      count+=1
+     }, timeout);
    }
-   setInterval(checkDB(), 60000);
+}
+
+function toggleVisualisation(){
+    for(var i = 0; i < mapsmarkers.length; i++){
+        mapsmarkers[i].setVisible(visTog);
+    }
+
+    if (visTog == false){
+        heatmap.setMap(map);
+    } else {
+        heatmap.setMap(null);
+    }
+
+
+    visTog = !visTog;
 }
