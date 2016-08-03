@@ -209,7 +209,7 @@ function initMap() {
 
   function checkDB(){
     console.log("Checking db")
-    $.getJSON("https://who-is-downloading.herokuapp.com/db", function( data ) {
+    $.getJSON("https://watch-the-thrones.herokuapp.com/db", function( data ) {
       var newMarkers = [];
       for(var i=0; i < data.length; i++){
         newMarker = data[i];
