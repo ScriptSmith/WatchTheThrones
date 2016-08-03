@@ -18,7 +18,7 @@ server.listen(process.env.PORT, function () {
 })
 
 // The URI of a game of thrones magnet link
-var uri = 'magnet:?xt=urn:btih:3d400e3031918a28c6372928eea39fcb15113001&dn=Game+of+Thrones+Season+6+S06+Complete+1080p+WEB+DL+x265+HEVC+SUJ&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969'
+var uri = "magnet:?xt=urn:btih:3d400e3031918a28c6372928eea39fcb15113001&dn=Game+of+Thrones+Season+6+S06+Complete+1080p+WEB+DL+x265+HEVC+SUJ&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Fzer0day.ch%3A1337&tr=udp%3A%2F%2Fopen.demonii.com%3A1337&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Fexodus.desync.com%3A6969"
 var parsed = magnet(uri)
 
 console.log(parsed.infoHash)
