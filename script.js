@@ -204,78 +204,32 @@ var styles =
 ]
 var count = 0
 var markers = []
-var mapsmarkers = []
-var heatmarkers = []
-var visTog = false
-var torrents
-
-var map
-var heatmap
 
 function initMap() {
 
   function checkDB(){
-    $.getJSON("https://watch-the-thrones.herokuapp.com/db", function( data ) {
-      console.log("Checked db")
-
+    console.log("Checking db")
+    $.getJSON("https://who-is-downloading.herokuapp.com/db", function( data ) {
       var newMarkers = [];
-      torrents = data
-
-      for(var torrent in torrents){
-        for (var j=0; j < torrents[torrent]["IPs"].length; j++){
-          var downloader = torrents[torrent]["IPs"][j]
-          markers.push(downloader);
-          newMarkers.push(downloader);
-
-          if (markers.indexOf(downloader) == -1){
-            heatmarker = new google.maps.LatLng(downloader["location"]["ll"][0],downloader["location"]["ll"][1]);
-            heatmarkers.push(heatmarker);
-          }
+      for(var i=0; i < data.length; i++){
+        newMarker = data[i];
+        if (markers.indexOf(newMarker["ip"]) == -1){
+          // console.log("New Marker")
+          markers.push(newMarker["ip"]);
+          newMarkers.push(newMarker);
+        } else {
+          // console.log("Old Marker")
         }
       }
       drop(newMarkers);
     });
   }
 
-  checkDB()
-
-  function capital(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  function getDownloadersAt(location){
-    var downloaders = []
-    for(var torrent in torrents){
-      for(var i = 0; i < torrents[torrent]["IPs"].length; i++){
-        if (torrents[torrent]["IPs"][i]["location"] == location){
-          downloaders.push(torrents[torrent]["IPs"][i])
-        }
-      }
-    }
-    return downloaders
-  }
-
-  function getTorrentInfo(ip){
-    for(var torrent in torrents){
-      if (torrents[torrent]["IPs"].indexOf(ip) != -1) {
-        var torrent = torrents[torrent]
-        var text = "<b>IP: </b>" + ip["ip"]
-
-        for (attribute in torrent){
-          if (attribute != "IPs"){
-            text = text + "<br><b>" + capital(attribute) + ": </b>" + torrent[attribute]
-          }
-        }
-        return text
-      }
-    }
-    return "nothing"
-  }
-
   function CenterControl(controlDiv, map) {
 
     controlDiv.onclick = function() {
-      something = window.open("https://watch-the-thrones.herokuapp.com/db");
+      something = window.open("data:text/json," + encodeURIComponent(markers),
+                       "_blank");
        something.focus();
     }
 
@@ -288,7 +242,7 @@ function initMap() {
     controlUI.style.cursor = 'pointer';
     controlUI.style.marginBottom = '22px';
     controlUI.style.textAlign = 'center';
-    controlUI.title = 'People downloading';
+    controlUI.title = 'People downloading Game of Thrones';
     controlDiv.appendChild(controlUI);
 
     // Set CSS for the control interior.
@@ -299,21 +253,16 @@ function initMap() {
     controlText.style.lineHeight = '38px';
     controlText.style.paddingLeft = '5px';
     controlText.style.paddingRight = '5px';
-    controlText.innerHTML = 'People downloading Game of Thrones right now:<br>0';
+    controlText.innerHTML = 'People downloading Game of Thrones: 0';
     controlText.setAttribute("id", "mainTitle");
     controlUI.appendChild(controlText);
 
   }
 
-  map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: {lat: 30, lng: 15.35}
   });
-
-  heatmap = new google.maps.visualization.HeatmapLayer({
-    data: heatmarkers,
-  });
-
   map.setOptions({styles: styles});
 
   var centerControlDiv = document.createElement('div');
@@ -322,10 +271,6 @@ function initMap() {
   centerControlDiv.index = 1;
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
-  var infowindow = new google.maps.InfoWindow({
-   content: "<div id='infoText'></div>"
- });
-
   function drop(data) {
      for (var i = 0; i < data.length; i++) {
        addMarkerWithTimeout(data[i], i * Math.random()*3 * 100);
@@ -333,52 +278,17 @@ function initMap() {
    }
 
    function addMarkerWithTimeout(pin, timeout) {
-
      window.setTimeout(function() {
        var marker = new google.maps.Marker({
-         position: {lat: pin['location']['ll'][0], lng: pin['location']['ll'][1]},
+         position: {lat: pin['ll'][0], lng: pin['ll'][1]},
          map: map,
          title: pin['ip'],
          icon: "marker.png",
-         visible: !visTog
         //  animation: google.maps.Animation.DROP
        });
-
-      marker.addListener('click', function() {
-        infowindow.open(map, marker);
-
-        downloaders = getDownloadersAt(pin["location"])
-
-        var text = ""
-        for (var i = 0; i < downloaders.length; i++){
-          var text = text + getTorrentInfo(pin)
-        }
-        $("#infoText").html(text)
-      });
-
-      mapsmarkers.push(marker)
-
-      $("#mainTitle").html("People downloading Game of Thrones right now:<br>" + count)
-      count+=1
+       $("#mainTitle").html("People I found downloading Game of Thrones:<br>" + count)
+       count+=1
      }, timeout);
    }
-}
-
-function toggleVisualisation(){
-    for(var i = 0; i < mapsmarkers.length; i++){
-        mapsmarkers[i].setVisible(visTog);
-    }
-
-    if (visTog == false){
-        heatmap.setMap(map);
-    } else {
-        heatmap.setMap(null);
-    }
-
-
-    visTog = !visTog;
-}
-
-function lewisb(){
-    console.log(markers.length)
+   setInterval(checkDB(), 60000);
 }
