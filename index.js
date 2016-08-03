@@ -5,7 +5,6 @@ var jsonfile = require('jsonfile')
 
 var locations = []
 
-// server.js
 var jsonServer = require('json-server')
 var server = jsonServer.create()
 var router = jsonServer.router(locations)
