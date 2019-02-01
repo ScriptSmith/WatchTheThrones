@@ -1,5 +1,5 @@
 # THIS IS A WIP
-See [35e733f](https://github.com/ScriptSmith/WatchTheThrones/commit/35e733fe6b7c3ea586a1eca6ca83020826d9736e) to get an idea of what it looked like when I first worked on it
+See [35e733f](https://github.com/ScriptSmith/WatchTheThrones/tree/35e733fe6b7c3ea586a1eca6ca83020826d9736e) to get an idea of what it looked like when I first worked on it
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
