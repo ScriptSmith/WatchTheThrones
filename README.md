@@ -1,3 +1,6 @@
+# THIS IS A WIP
+See 35e733f to get an idea of what it looked like when I first worked on it
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
